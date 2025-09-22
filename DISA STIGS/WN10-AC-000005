@@ -1,0 +1,47 @@
+
+<#
+.SYNOPSIS
+    This PowerShell script ensures that the maximum size of the Windows Application event log is at least 32768 KB (32 MB).
+
+.NOTES
+    Author          : Emran Hossain
+    LinkedIn        : https://www.linkedin.com/in/emranhossain278/
+    GitHub          : https://github.com/Emranhossain27
+    Date Created    : 09-22-2025
+    Last Modified   : 09-22-2025
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-AC-000005
+
+.TESTED ON
+    Date(s) Tested  : 09-22-2025
+    Tested By       : Emran Hossain
+    Systems Tested  : Windows
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
+#>
+
+# YOUR CODE GOES HERE
+# Run this script in an elevated PowerShell session (as Administrator)
+
+$path = "Local Computer Policy\Computer Configuration\Windows Settings\Security Settings\Account Policies\Account Lockout Policy"
+$name = "MaxSize"
+$value = 0x8000  # hex 8000 = 32768 decimal
+
+
+# Set Account Lockout Duration to 15 minutes
+secedit /export /cfg C:\Windows\Temp\secpol.cfg
+(Get-Content C:\Windows\Temp\secpol.cfg).Replace("LockoutDuration = 0", "LockoutDuration = 15") | Set-Content C:\Windows\Temp\secpol.cfg
+(Get-Content C:\Windows\Temp\secpol.cfg).Replace("LockoutDuration = 5", "LockoutDuration = 15") | Set-Content C:\Windows\Temp\secpol.cfg
+(Get-Content C:\Windows\Temp\secpol.cfg).Replace("LockoutDuration = 10", "LockoutDuration = 15") | Set-Content C:\Windows\Temp\secpol.cfg
+
+# Apply the updated security policy
+secedit /configure /db C:\Windows\security\local.sdb /cfg C:\Windows\Temp\secpol.cfg /areas SECURITYPOLICY
+
+# Refresh group policy
+gpupdate /force
