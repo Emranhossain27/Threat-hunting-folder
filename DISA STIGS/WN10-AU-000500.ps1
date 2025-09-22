@@ -7,15 +7,15 @@
     Author          : Emran Hossain
     LinkedIn        : https://www.linkedin.com/in/emranhossain278/
     GitHub          : https://github.com/Emranhossain27
-    Date Created    : 09-22-2025
-    Last Modified   : 09-22-2025
+    Date Created    : 09-21-2025
+    Last Modified   : 09-21-2025
     Version         : 1.0
     CVEs            : N/A
     Plugin IDs      : N/A
     STIG-ID         : WN10-AU-000500
 
 .TESTED ON
-    Date(s) Tested  : 09-22-2025
+    Date(s) Tested  : 09-21-2025
     Tested By       : Emran Hossain
     Systems Tested  : Windows
     PowerShell Ver. : 
